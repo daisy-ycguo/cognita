@@ -46,6 +46,9 @@ services:
       - OLLAMA_KEEP_ALIVE=24h
       - OLLAMA_HOST=0.0.0.0
       - OLLAMA_PORT=11434
+      #- HTTP_PROXY=http://192.168.1.8:10811
+      #- HTTPS_PROXY=http://192.168.1.8:10811
+      #- NO_PROXY=localhost,127.0.0.1,0.0.0.0,172.17.0.1/16,192.168.1.0/24,172.31.249.239/20      
     entrypoint: /bin/bash
     command: -c "set -e; ollama serve & sleep 10 && ollama pull ${OLLAMA_MODEL} && sleep infinity"
     networks:
@@ -72,6 +75,9 @@ services:
       - INFINITY_MODEL_ID=${INFINITY_EMBEDDING_MODEL};${INFINITY_RERANKING_MODEL}
       - INFINITY_BATCH_SIZE=8
       - INFINITY_API_KEY=${INFINITY_API_KEY}
+      - HTTP_PROXY=http://192.168.1.8:10811
+      - HTTPS_PROXY=http://192.168.1.8:10811
+      - NO_PROXY=localhost,127.0.0.1,0.0.0.0,172.17.0.1/16,192.168.1.0/24,172.31.249.239/20      
     command: v2
     networks:
       - cognita-docker
@@ -197,6 +203,9 @@ services:
       - TFY_API_KEY=${TFY_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - BRAVE_API_KEY=${BRAVE_API_KEY}
+      #- HTTP_PROXY=http://192.168.1.8:10811
+      #- HTTPS_PROXY=http://192.168.1.8:10811
+      #- NO_PROXY=localhost,127.0.0.1,0.0.0.0,172.17.0.1/16,192.168.1.0/24,172.31.249.239/20
     entrypoint: /bin/bash
     security_opt:
       - seccomp:./seccomp.json
